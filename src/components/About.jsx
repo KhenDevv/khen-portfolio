@@ -102,33 +102,44 @@ const About = () => {
 
           {/* Technical Expertise Block (Separated and Below) */}
           <div className="border-t border-slate-900/60 pt-16">
-            <h3 className="text-3xl md:text-4xl font-bold mb-12 text-white tracking-tight font-display">
+            <h3 className="text-3xl md:text-4xl font-bold mb-16 text-white tracking-tight font-display text-center">
               Technical Expertise
             </h3>
             
-            <motion.div 
-              className="grid grid-cols-2 md:grid-cols-3 gap-6"
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0.1 }}
-            >
-              {skills.map((skill) => (
-                <motion.div
-                  key={skill.name}
-                  variants={itemVariants}
-                  className="bg-slate-900/40 backdrop-blur-md border border-slate-800/80 hover:border-blue-500/30 hover:bg-slate-900/70 p-8 rounded-2xl flex flex-col items-center justify-center text-center group transition-all duration-300 cursor-default shadow-lg hover:shadow-blue-500/5 min-h-[160px]"
-                >
-                  <div className="text-blue-500 mb-4 group-hover:scale-110 transition-transform duration-300">
-                    {skill.icon}
-                  </div>
-                  <h4 className="text-xl font-bold text-white tracking-tight">{skill.name}</h4>
-                  <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-2">
-                    {skill.category.toUpperCase()}
-                  </span>
-                </motion.div>
+            <div className="space-y-16">
+              {['Front End', 'Framework & Libs', 'Databases', 'Tools'].map(category => (
+                <div key={category} className="flex flex-col items-center md:items-start">
+                  <h4 className="text-xl font-bold text-blue-500 mb-8 uppercase tracking-widest font-display relative inline-block">
+                    {category}
+                    <div className="absolute -bottom-2 left-0 w-1/2 h-[2px] bg-blue-500 rounded-full"></div>
+                  </h4>
+                  
+                  <motion.div 
+                    className="grid grid-cols-2 md:grid-cols-3 gap-6 w-full"
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: false, amount: 0.1 }}
+                  >
+                    {skills.filter(s => s.category === category).map((skill) => (
+                      <motion.div
+                        key={skill.name}
+                        variants={itemVariants}
+                        className="bg-slate-900/40 backdrop-blur-md border border-slate-800/80 hover:border-blue-500/30 hover:bg-slate-900/70 p-8 rounded-2xl flex flex-col items-center justify-center text-center group transition-all duration-300 cursor-default shadow-lg hover:shadow-blue-500/5 min-h-[160px]"
+                      >
+                        <div className="text-blue-500 mb-4 group-hover:scale-110 transition-transform duration-300">
+                          {skill.icon}
+                        </div>
+                        <h4 className="text-xl font-bold text-white tracking-tight">{skill.name}</h4>
+                        <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-2">
+                          {skill.category.toUpperCase()}
+                        </span>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </div>
           </div>
           
         </div>
