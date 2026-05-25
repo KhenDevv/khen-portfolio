@@ -92,6 +92,40 @@
       );
     background-size: 100vw 100vh;
   }
+
+  @keyframes premiumWave {
+    0% {
+      color: #111;
+      text-shadow: none;
+      transform: translateY(0);
+    }
+    15% {
+      color: #fff;
+      text-shadow: 0 0 20px rgba(255,255,255,0.8), 0 0 40px rgba(255,255,255,0.4);
+      transform: translateY(-4px);
+    }
+    30%, 100% {
+      color: #111;
+      text-shadow: none;
+      transform: translateY(0);
+    }
+  }
+
+  .premium-letter {
+    display: inline-block;
+    color: #111;
+    animation: premiumWave 2.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.05);
+  }
+
+  @keyframes blinkFade {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; text-shadow: 0 0 15px rgba(255,255,255,0.8); }
+  }
+
+  .blinker {
+    animation: blinkFade 1s infinite step-end;
+  }
 }
 
 /* Custom Scrollbar */

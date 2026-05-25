@@ -84,17 +84,17 @@ const About = () => {
                 {/* Main Image Container */}
                 <div className="relative rounded-2xl overflow-hidden z-10 border border-white/10 shadow-2xl bg-black">
                   
-                  {/* Black Overlay that reveals the picture on hover */}
-                  <div className="absolute inset-0 bg-black/80 group-hover:bg-black/0 transition-colors duration-700 ease-in-out z-20 pointer-events-none"></div>
+                  {/* Subtle tint that disappears on hover */}
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-700 ease-in-out z-20 pointer-events-none"></div>
 
                   <img 
                     src="/pfft.jpg" 
                     alt="Profile" 
-                    className="w-full object-cover transform scale-100 group-hover:scale-105 filter grayscale contrast-125 hover:grayscale-0 hover:contrast-100 transition-all duration-700 ease-in-out relative z-10" 
+                    className="w-full object-cover transform scale-100 group-hover:scale-105 filter grayscale hover:grayscale-0 transition-all duration-700 ease-in-out relative z-10" 
                   />
                   
-                  {/* Overlay subtle gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-80 z-20 pointer-events-none"></div>
+                  {/* Gentle bottom gradient for blending */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60 z-20 pointer-events-none"></div>
                 </div>
               </div>
             </motion.div>
