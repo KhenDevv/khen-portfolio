@@ -1,13 +1,108 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Syncopate:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-slate-950 text-slate-200 antialiased selection:bg-blue-500/30;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold tracking-tight text-white;
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@layer components {
+  .section-padding {
+    @apply py-20 px-6 max-w-7xl mx-auto;
+  }
+  
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl;
+  }
+  
+  .btn-primary {
+    @apply px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-blue-900/20 active:scale-95;
+  }
+  
+  .btn-secondary {
+    @apply px-6 py-3 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1 active:scale-95;
+  }
+
+  .nav-link {
+    @apply text-slate-400 hover:text-white transition-colors duration-200 font-medium;
+  }
+
+  .skill-badge {
+    @apply px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-full text-sm font-medium;
+  }
+
+  /* Custom Text Effects */
+  .font-hero-name {
+    font-family: 'Syncopate', 'Orbitron', sans-serif;
+  }
+
+  .stroke-text {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
+  }
+
+  .hover-glow:hover {
+    color: #34d399; /* emerald-400 */
+    -webkit-text-stroke: 0px;
+    text-shadow: 0 0 20px rgba(52, 211, 153, 0.6), 0 0 40px rgba(52, 211, 153, 0.3);
+  }
+
+  /* For sequential letter animation */
+  .hover-glow-letter {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .group:hover .hover-glow-letter {
+    color: #e2e8f0; /* slate-200 */
+    -webkit-text-stroke: 0px;
+    text-shadow: 0 0 20px rgba(226, 232, 240, 0.6), 0 0 40px rgba(226, 232, 240, 0.3);
+  }
+
+  .wavy-lines-bg {
+    background-color: #000;
+    background-image: 
+      repeating-radial-gradient(
+        circle at 150% 50%,
+        transparent 0,
+        transparent 20px,
+        rgba(16, 185, 129, 0.15) 21px,
+        rgba(16, 185, 129, 0.15) 22px
+      ),
+      repeating-radial-gradient(
+        circle at -50% 50%,
+        transparent 0,
+        transparent 20px,
+        rgba(16, 185, 129, 0.15) 21px,
+        rgba(16, 185, 129, 0.15) 22px
+      );
+    background-size: 100vw 100vh;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-950;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-800 rounded-full hover:bg-slate-700 transition-colors;
 }
