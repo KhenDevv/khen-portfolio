@@ -22,7 +22,7 @@ const Navbar = () => {
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${
-      scrolled ? 'bg-slate-950/80 backdrop-blur-md py-4 border-b border-white/5' : 'bg-transparent py-6'
+      scrolled ? 'bg-black/80 backdrop-blur-md py-4 border-b border-white/5' : 'bg-transparent py-6'
     }`}>
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         <a href="#home" className="flex items-center gap-2 group">
@@ -55,7 +55,7 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`fixed inset-0 bg-slate-950 z-40 transition-transform duration-500 md:hidden ${
+      <div className={`fixed inset-0 bg-black z-40 transition-transform duration-500 md:hidden ${
         isOpen ? 'translate-x-0' : 'translate-x-full'
       }`}>
         <div className="flex flex-col items-center justify-center h-full gap-8">

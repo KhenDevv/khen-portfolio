@@ -26,7 +26,7 @@ const Certifications = () => {
   ];
 
   return (
-    <section id="certifications" className="bg-slate-900/50">
+    <section id="certifications" className="bg-black">
       <div className="section-padding">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16">
           <div>
@@ -62,7 +62,7 @@ const Certifications = () => {
                   
                   {/* Hover Overlay */}
                   <motion.div 
-                    className="absolute inset-0 bg-slate-950/90 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-center text-center p-6 backdrop-blur-sm"
+                    className="absolute inset-0 bg-black/90 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-center text-center p-6 backdrop-blur-sm"
                   >
                     <div className="mb-4 w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center text-2xl">
                       {cert.icon}

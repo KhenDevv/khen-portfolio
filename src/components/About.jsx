@@ -125,7 +125,7 @@ const About = () => {
                       <motion.div
                         key={skill.name}
                         variants={itemVariants}
-                        className="bg-slate-900/40 backdrop-blur-md border border-slate-800/80 hover:border-blue-500/30 hover:bg-slate-900/70 p-8 rounded-2xl flex flex-col items-center justify-center text-center group transition-all duration-300 cursor-default shadow-lg hover:shadow-blue-500/5 min-h-[160px]"
+                        className="bg-neutral-900/40 backdrop-blur-md border border-neutral-800/80 hover:border-blue-500/30 hover:bg-neutral-900/70 p-8 rounded-2xl flex flex-col items-center justify-center text-center group transition-all duration-300 cursor-default shadow-lg hover:shadow-blue-500/5 min-h-[160px]"
                       >
                         <div className="text-blue-500 mb-4 group-hover:scale-110 transition-transform duration-300">
                           {skill.icon}

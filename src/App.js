@@ -13,9 +13,9 @@ function App() {
     <>
       {loading && <Preloader onComplete={() => setLoading(false)} />}
       
-      <div className={`min-h-screen bg-slate-950 text-slate-200 transition-opacity duration-700 ${loading ? 'opacity-0 h-screen overflow-hidden' : 'opacity-100'}`}>
+      <div className={`min-h-screen bg-black text-slate-200 ${loading ? 'h-screen overflow-hidden' : ''}`}>
         <main>
-          <Home />
+          <Home isLoading={loading} />
           <About />
           <Projects />
           <Certifications />
