@@ -1,23 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Code2, Server, Database, Globe, Layout, Blocks, Zap, Wind, Flame, GitBranch, Github, Terminal, Palette, FileCode } from 'lucide-react';
-
 const About = () => {
-  const skills = [
-    { name: 'HTML', icon: <FileCode size={24} />, category: 'Front End' },
-    { name: 'CSS', icon: <Palette size={24} />, category: 'Front End' },
-    { name: 'TypeScript', icon: <Code2 size={24} />, category: 'Front End' },
-    { name: 'React', icon: <Blocks size={24} />, category: 'Framework & Libs' },
-    { name: 'Next.JS', icon: <Zap size={24} />, category: 'Framework & Libs' },
-    { name: 'Tailwind CSS', icon: <Wind size={24} />, category: 'Framework & Libs' },
-    { name: 'Node.JS', icon: <Server size={24} />, category: 'Framework & Libs' },
-    { name: 'SupaBase', icon: <Database size={24} />, category: 'Databases' },
-    { name: 'Firebase', icon: <Flame size={24} />, category: 'Databases' },
-    { name: 'PostgreSQL', icon: <Database size={24} />, category: 'Databases' },
-    { name: 'GitHub', icon: <Github size={24} />, category: 'Tools' },
-    { name: 'Git', icon: <GitBranch size={24} />, category: 'Tools' },
-    { name: 'VSCode', icon: <Terminal size={24} />, category: 'Tools' },
-  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -35,7 +18,7 @@ const About = () => {
   };
 
   return (
-    <section id="about" className="bg-black relative py-24 border-t border-slate-900/60">
+    <section id="about" className="relative py-24">
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col gap-20">
           
@@ -100,43 +83,79 @@ const About = () => {
             </motion.div>
           </div>
 
-          {/* Technical Expertise Block (Separated and Below) */}
-          <div className="border-t border-slate-900/60 pt-16">
-            <h3 className="text-3xl md:text-4xl font-bold mb-16 text-white tracking-tight font-display text-center">
-              Technical Expertise
-            </h3>
+          {/* Technical Expertise Block (Side-by-Side Layout) */}
+          <div className="pt-24 pb-12">
             
-            <div className="space-y-16">
-              {['Front End', 'Framework & Libs', 'Databases', 'Tools'].map(category => (
-                <div key={category} className="flex flex-col items-center md:items-start">
-                  <h4 className="text-xl font-bold text-blue-500 mb-8 uppercase tracking-widest font-display relative inline-block">
-                    {category}
-                    <div className="absolute -bottom-2 left-0 w-1/2 h-[2px] bg-blue-500 rounded-full"></div>
-                  </h4>
-                  
+            <div className="flex flex-col gap-16 md:gap-24 w-full max-w-5xl mx-auto">
+              {[
+                {
+                  title: 'FRONTEND',
+                  skills: [
+                    { name: 'HTML', icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" className="w-6 h-6 md:w-8 md:h-8" /> },
+                    { name: 'CSS', icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" className="w-6 h-6 md:w-8 md:h-8" /> },
+                    { name: 'TypeScript', icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" className="w-6 h-6 md:w-8 md:h-8" /> },
+                  ]
+                },
+                {
+                  title: 'FRAMEWORK & LIBS',
+                  skills: [
+                    { name: 'React', icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" className="w-6 h-6 md:w-8 md:h-8" /> },
+                    { name: 'Next.JS', icon: <div className="w-6 h-6 md:w-8 md:h-8 bg-white rounded-full flex items-center justify-center p-1"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="NextJS" className="w-full h-full object-contain" /></div> },
+                    { name: 'Tailwind CSS', icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind" className="w-6 h-6 md:w-8 md:h-8" /> },
+                    { name: 'Node.JS', icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.JS" className="w-6 h-6 md:w-8 md:h-8" /> },
+                  ]
+                },
+                {
+                  title: 'DATABASE',
+                  skills: [
+                    { name: 'SupaBase', icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" alt="Supabase" className="w-6 h-6 md:w-8 md:h-8" /> },
+                    { name: 'Firebase', icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase" className="w-6 h-6 md:w-8 md:h-8" /> },
+                    { name: 'PostgreSQL', icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" className="w-6 h-6 md:w-8 md:h-8" /> },
+                  ]
+                },
+                {
+                  title: 'TOOLS',
+                  skills: [
+                    { name: 'Github', icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" className="w-6 h-6 md:w-8 md:h-8 invert" /> },
+                    { name: 'Git', icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" className="w-6 h-6 md:w-8 md:h-8" /> },
+                    { name: 'VSCode', icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VSCode" className="w-6 h-6 md:w-8 md:h-8" /> },
+                  ]
+                }
+              ].map((category, idx) => (
+                <div key={idx} className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-12 items-start">
+                  {/* Left Column: Big Category Title */}
                   <motion.div 
-                    className="grid grid-cols-2 md:grid-cols-3 gap-6 w-full"
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
+                    className="flex justify-start md:justify-end"
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: false, amount: 0.1 }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
                   >
-                    {skills.filter(s => s.category === category).map((skill) => (
+                    <h3 className="text-4xl md:text-5xl font-syncopate font-bold text-slate-400 opacity-60 tracking-tighter uppercase drop-shadow-sm">
+                      {category.title}
+                    </h3>
+                  </motion.div>
+                  
+                  {/* Right Column: Skills Grid */}
+                  <div className="flex flex-wrap gap-x-8 gap-y-6 md:gap-x-12 md:gap-y-8">
+                    {category.skills.map((skill, sIdx) => (
                       <motion.div
-                        key={skill.name}
-                        variants={itemVariants}
-                        className="bg-neutral-900/40 backdrop-blur-md border border-neutral-800/80 hover:border-blue-500/30 hover:bg-neutral-900/70 p-8 rounded-2xl flex flex-col items-center justify-center text-center group transition-all duration-300 cursor-default shadow-lg hover:shadow-blue-500/5 min-h-[160px]"
+                        key={sIdx}
+                        initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                        viewport={{ once: false, amount: 0.1 }}
+                        transition={{ duration: 0.5, delay: sIdx * 0.1 }}
+                        className="flex items-center gap-3 md:gap-4 group cursor-default"
                       >
-                        <div className="text-blue-500 mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <div className="transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_10px_rgba(255,255,255,0.1)]">
                           {skill.icon}
                         </div>
-                        <h4 className="text-xl font-bold text-white tracking-tight">{skill.name}</h4>
-                        <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-2">
-                          {skill.category.toUpperCase()}
+                        <span className="text-lg md:text-xl font-medium text-slate-200 tracking-wide group-hover:text-white transition-colors duration-300">
+                          {skill.name}
                         </span>
                       </motion.div>
                     ))}
-                  </motion.div>
+                  </div>
                 </div>
               ))}
             </div>

@@ -2,123 +2,141 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const Preloader = ({ onComplete }) => {
-  const [phase, setPhase] = useState('text');
-  const name = "KHEN";
+  const [phase, setPhase] = useState(0);
 
   useEffect(() => {
-    // Start majestic wipe after 3.2s
-    const wipeTimer = setTimeout(() => {
-      setPhase('wipe');
-    }, 3200);
+    // Phase 1: Event Horizon text reveal
+    const t1 = setTimeout(() => setPhase(1), 800);
+    
+    // Phase 2: Supernova Wind-up (blur and intensify)
+    const t2 = setTimeout(() => setPhase(2), 2400);
 
-    // Unmount after wipe completes (1.6s duration + 0.24s stagger = 1.84s)
-    const completeTimer = setTimeout(() => {
+    // Phase 3: The Supernova Explosion (white flash)
+    const t3 = setTimeout(() => setPhase(3), 3000);
+
+    // Phase 4: Complete and Unmount
+    const t4 = setTimeout(() => {
       onComplete();
-    }, 5100);
+    }, 4200);
 
     return () => {
-      clearTimeout(wipeTimer);
-      clearTimeout(completeTimer);
+      clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
     };
   }, [onComplete]);
 
-  const columns = 9;
-  const centerIdx = Math.floor(columns / 2);
+  // Generate stable random values for cosmic dust
+  const dustParticles = React.useMemo(() => {
+    return Array.from({ length: 40 }).map(() => ({
+      x1: (Math.random() - 0.5) * 100,
+      y1: (Math.random() - 0.5) * 100,
+      x2: (Math.random() - 0.5) * 120,
+      y2: (Math.random() - 0.5) * 120,
+      scale: Math.random() * 1.5 + 0.5,
+      duration: 2 + Math.random() * 3,
+    }));
+  }, []);
 
   return (
-    <div className="fixed inset-0 z-[100] flex pointer-events-none">
-      
-      {/* 3D Venetian Shutter Wipe */}
-      <div className="absolute inset-0 flex w-full h-full overflow-hidden bg-transparent" style={{ perspective: '1200px' }}>
-        {Array.from({ length: columns }).map((_, i) => {
-          const delayFromCenter = Math.abs(i - centerIdx) * 0.06;
-          
-          return (
-            <motion.div
-              key={i}
-              initial={{ y: "0%", rotateY: 0, z: 0 }}
-              animate={phase === 'wipe' ? { 
-                y: "-100%", 
-                rotateY: [0, -75, 0], 
-                z: [0, -150, 0] 
-              } : { 
-                y: "0%", rotateY: 0, z: 0 
-              }}
-              transition={{
-                duration: 1.6,
-                ease: [0.85, 0, 0.15, 1], // Expo ease for dramatic sweeping
-                delay: phase === 'wipe' ? delayFromCenter : 0,
-                rotateY: { duration: 1.6, times: [0, 0.5, 1], ease: "easeInOut", delay: phase === 'wipe' ? delayFromCenter : 0 },
-                z: { duration: 1.6, times: [0, 0.5, 1], ease: "easeInOut", delay: phase === 'wipe' ? delayFromCenter : 0 }
-              }}
-              className="relative flex-1 h-[200%] flex flex-col"
-              style={{ transformStyle: 'preserve-3d', transformOrigin: 'center center' }}
-            >
-              {/* TOP HALF: Solid Black Screen */}
-              <div className="flex-1 bg-[#050505]" />
-              
-              {/* LASER BOUNDARY */}
-              <div className="relative h-[2px] w-full z-20">
-                <div className="absolute inset-0 bg-white shadow-[0_0_25px_4px_rgba(255,255,255,0.9)]" />
-                {/* Intense Core Flare */}
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[1px] bg-white/60 blur-[1px]" />
-                {/* Volumetric Trail */}
-                <div className="absolute top-full left-0 w-full h-[10vh] bg-gradient-to-b from-white/20 to-transparent" />
-              </div>
-              
-              {/* BOTTOM HALF: Premium Breathing Grey Carbon Plate */}
-              <motion.div 
-                className={`flex-1 relative overflow-hidden shadow-[inset_0_0_30px_rgba(0,0,0,0.9)] ${i !== columns - 1 ? 'border-r border-neutral-700/50' : ''}`}
-                animate={{ backgroundColor: ["#141414", "#2a2a2a", "#141414"] }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: delayFromCenter,
-                }}
-              >
-                {/* Carbon Fiber / Diagonal Mesh Overlay */}
-                <div 
-                  className="absolute inset-0 opacity-[0.15]" 
-                  style={{
-                    backgroundImage: "repeating-linear-gradient(-45deg, transparent, transparent 6px, #ffffff 6px, #ffffff 7px)"
-                  }}
-                />
-              </motion.div>
-            </motion.div>
-          );
-        })}
+    <motion.div 
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#030712] overflow-hidden pointer-events-none"
+      animate={phase === 3 ? { opacity: 0 } : { opacity: 1 }}
+      transition={{ duration: 1.2, ease: "easeInOut", delay: 0.2 }}
+    >
+      {/* Cosmic Dust Background */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        {dustParticles.map((particle, i) => (
+          <motion.div 
+            key={i}
+            className="absolute rounded-full bg-blue-300 shadow-[0_0_8px_rgba(147,197,253,0.8)]"
+            style={{ width: 2, height: 2 }}
+            initial={{
+              x: `${particle.x1}vw`,
+              y: `${particle.y1}vh`,
+              scale: particle.scale,
+              opacity: 0
+            }}
+            animate={
+              phase < 2 
+                ? {
+                    x: `${particle.x2}vw`,
+                    y: `${particle.y2}vh`,
+                    opacity: [0, 0.8, 0],
+                  }
+                : {
+                    scale: 0,
+                    opacity: 0,
+                  }
+            }
+            transition={{
+              duration: particle.duration,
+              ease: "linear",
+              repeat: phase < 2 ? Infinity : 0
+            }}
+          />
+        ))}
       </div>
 
-      {/* The Text Layer with 3D Tilt Fall */}
-      <div className="absolute inset-0 z-50 flex items-center justify-center pointer-events-none" style={{ perspective: '1000px' }}>
-        <motion.div 
-          className="relative flex items-center font-hero-name text-6xl sm:text-8xl md:text-9xl font-black tracking-[0.25em]"
+      {/* Center Event Horizon Line */}
+      <motion.div 
+        className="absolute top-1/2 left-0 right-0 h-[2px] bg-blue-400 shadow-[0_0_30px_10px_rgba(96,165,250,0.6)] z-10 origin-center"
+        initial={{ scaleX: 0, scaleY: 1 }}
+        animate={
+          phase === 0 ? { scaleX: 0, scaleY: 1 } :
+          phase === 1 ? { scaleX: 1, scaleY: 1 } :
+          phase === 2 ? { scaleX: 1, scaleY: 2, backgroundColor: "#bae6fd", boxShadow: "0 0 50px 20px rgba(186,230,253,1)" } :
+          { scaleX: 1.5, scaleY: 3000, backgroundColor: "#ffffff", boxShadow: "0 0 100px 50px rgba(255,255,255,1)" }
+        }
+        transition={{
+          scaleX: { duration: 0.8, ease: "circOut" },
+          scaleY: phase === 3 ? { duration: 0.6, ease: "circIn" } : { duration: 0.6, ease: "easeInOut" },
+          backgroundColor: { duration: 0.6 }
+        }}
+      />
+
+      {/* Top Text Reveal: KHEN */}
+      <div className="absolute bottom-1/2 left-0 right-0 h-[40vh] overflow-hidden flex items-end justify-center pb-2 z-20">
+        <motion.div
+          className="font-syncopate font-bold text-6xl sm:text-7xl md:text-[8rem] tracking-[0.15em] text-white flex items-end drop-shadow-[0_0_20px_rgba(255,255,255,0.7)]"
+          initial={{ y: "100%", opacity: 0 }}
           animate={
-            phase === 'wipe' 
-              ? { opacity: 0, scale: 0.8, y: -60, rotateX: 50, filter: "blur(12px)" } 
-              : { opacity: 1, scale: 1, y: 0, rotateX: 0, filter: "blur(0px)" }
+            phase === 0 ? { y: "100%", opacity: 0 } :
+            phase === 1 ? { y: "0%", opacity: 1, filter: "blur(0px) brightness(1)", scale: 1 } :
+            phase === 2 ? { y: "0%", opacity: 1, filter: "blur(8px) brightness(1.5)", scale: 1.05 } :
+            { y: "-50%", opacity: 0, filter: "blur(20px)", scale: 1.2 }
           }
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          style={{ transformStyle: 'preserve-3d' }}
+          transition={{
+            y: phase === 3 ? { duration: 0.8, ease: "circIn" } : { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+            opacity: { duration: 0.4 },
+            filter: { duration: 0.6, ease: "easeIn" },
+            scale: { duration: 0.6, ease: "easeIn" }
+          }}
         >
-          {/* Subtle background glow for the whole word */}
-          <div className="absolute inset-0 blur-[60px] bg-white/5 rounded-full" />
-          
-          {name.split('').map((char, index) => (
-            <span
-              key={index}
-              className="premium-letter relative z-10"
-              style={{ animationDelay: `${index * 0.15}s` }}
-            >
-              {char}
-            </span>
-          ))}
-          {/* Creative Terminal Blinker */}
-          <span className="blinker ml-2 md:ml-4 w-4 md:w-6 h-12 md:h-20 bg-white inline-block shadow-[0_0_15px_rgba(255,255,255,0.6)] relative z-10"></span>
+          KHEN
         </motion.div>
       </div>
-    </div>
+      
+      {/* Bottom Text Reveal: ROLE */}
+      <div className="absolute top-1/2 left-0 right-0 h-[20vh] overflow-hidden flex items-start justify-center pt-4 z-20">
+        <motion.div
+          className="font-space text-blue-200 tracking-[0.4em] md:tracking-[0.6em] text-sm md:text-xl font-light uppercase drop-shadow-[0_0_10px_rgba(191,219,254,0.5)]"
+          initial={{ y: "-100%", opacity: 0 }}
+          animate={
+            phase === 0 ? { y: "-100%", opacity: 0 } :
+            phase === 1 ? { y: "0%", opacity: 1, filter: "blur(0px)" } :
+            phase === 2 ? { y: "0%", opacity: 0.5, filter: "blur(4px)" } :
+            { opacity: 0, y: "50%" }
+          }
+          transition={{
+            y: phase === 3 ? { duration: 0.8, ease: "circIn" } : { duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 },
+            opacity: { duration: 0.4, delay: phase === 1 ? 0.1 : 0 },
+            filter: { duration: 0.6 }
+          }}
+        >
+          Frontend Developer
+        </motion.div>
+      </div>
+
+    </motion.div>
   );
 };
 

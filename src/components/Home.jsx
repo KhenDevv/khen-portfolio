@@ -1,26 +1,9 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import GridScan from './GridScan';
 
 const Home = ({ isLoading }) => {
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-black">
-      {/* Background Animated Elements - Always visible so the wipe reveals them */}
-      <div className="absolute inset-0 z-0 opacity-80 mix-blend-screen">
-        <GridScan
-          sensitivity={0.55}
-          lineThickness={1}
-          linesColor="#888888"
-          gridScale={0.1}
-          scanColor="#ffffff"
-          scanOpacity={0.4}
-          enablePost
-          bloomIntensity={1.2}
-          chromaticAberration={0.004}
-          noiseIntensity={0.01}
-        />
-      </div>
-
+    <section id="home" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
       <div className="section-padding relative z-10 w-full flex justify-center">
         <div className="max-w-5xl w-full flex flex-col items-center text-center">
           

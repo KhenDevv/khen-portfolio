@@ -128,15 +128,16 @@
   }
 }
 
-/* Custom Scrollbar */
+/* Hide Default Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  display: none;
+}
+* {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
-::-webkit-scrollbar-track {
-  @apply bg-black;
-}
-
-::-webkit-scrollbar-thumb {
-  @apply bg-slate-800 rounded-full hover:bg-slate-700 transition-colors;
+/* Hide Default Cursor */
+* {
+  cursor: none !important;
 }

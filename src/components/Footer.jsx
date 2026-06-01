@@ -7,7 +7,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-black pt-20 pb-10 border-t border-white/5">
+    <footer className="pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-center mb-16 gap-10 text-center md:text-left">
           <div className="max-w-md">
@@ -31,7 +31,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 text-slate-500 text-sm">
+        <div className="flex flex-col md:flex-row justify-between items-center pt-8 text-slate-500 text-sm">
           <div className="mb-4 md:mb-0">
             © {new Date().getFullYear()} Built with React & Tailwind CSS.
           </div>

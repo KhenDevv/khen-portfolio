@@ -26,7 +26,7 @@ const Certifications = () => {
   ];
 
   return (
-    <section id="certifications" className="bg-black">
+    <section id="certifications">
       <div className="section-padding">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16">
           <div>
