@@ -2,21 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 const About = () => {
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: { opacity: 1, scale: 1 }
-  };
-
   return (
     <section id="about" className="relative py-24">
       <div className="max-w-6xl mx-auto px-6">

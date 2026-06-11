@@ -111,12 +111,13 @@ const Projects = () => {
       }
     };
 
-    if (containerRef.current) {
-      containerRef.current.addEventListener('mousemove', handleMouseMove);
+    const node = containerRef.current;
+    if (node) {
+      node.addEventListener('mousemove', handleMouseMove);
     }
     return () => {
-      if (containerRef.current) {
-        containerRef.current.removeEventListener('mousemove', handleMouseMove);
+      if (node) {
+        node.removeEventListener('mousemove', handleMouseMove);
       }
     };
   }, []);
