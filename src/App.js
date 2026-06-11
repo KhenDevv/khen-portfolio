@@ -8,6 +8,7 @@ import Preloader from './components/Preloader';
 import Particles from './components/Particles';
 import CustomCursor from './components/CustomCursor';
 import ScrollProgress from './components/ScrollProgress';
+import SocialSidebar from './components/SocialSidebar';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -18,14 +19,15 @@ function App() {
       
       <CustomCursor />
       <ScrollProgress />
+      <SocialSidebar />
       
       <div className={`min-h-screen text-slate-200 relative ${loading ? 'h-screen overflow-hidden' : ''}`}>
         <Particles
-          particleColors={['#ffffff', '#e0f2fe', '#bae6fd', '#c084fc', '#e9d5ff']}
+          particleColors={['#ffffff']}
           particleCount={800}
           particleSpread={15}
           speed={0.08}
-          particleBaseSize={140}
+          particleBaseSize={280}
           moveParticlesOnHover={false}
           alphaParticles={true}
           disableRotation={false}

@@ -65,12 +65,14 @@
     color: transparent;
     -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
     transition: all 0.3s ease-in-out;
+    transition-delay: var(--unhover-delay, 0ms);
   }
 
   .group:hover .hover-glow-letter {
     color: #e2e8f0; /* slate-200 */
     -webkit-text-stroke: 0px;
     text-shadow: 0 0 20px rgba(226, 232, 240, 0.6), 0 0 40px rgba(226, 232, 240, 0.3);
+    transition-delay: var(--hover-delay, 0ms);
   }
 
   .wavy-lines-bg {

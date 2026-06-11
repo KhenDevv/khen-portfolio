@@ -26,8 +26,7 @@ const ScrollProgress = () => {
         />
       </div>
       
-      {/* Small dot below the scrollbar to match the image design */}
-      <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-slate-500 rounded-full" />
+
     </div>
   );
 };

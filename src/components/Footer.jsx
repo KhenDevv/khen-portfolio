@@ -31,31 +31,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-center pt-8 text-slate-500 text-sm">
-          <div className="mb-4 md:mb-0">
-            © {new Date().getFullYear()} Built with React & Tailwind CSS.
-          </div>
 
-          <div className="flex items-center gap-6">
-            <a 
-              href="https://github.com/Flappyyyy" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="hover:text-blue-400 transition-colors uppercase tracking-widest text-xs font-bold"
-            >
-              Github
-            </a>
-            <a 
-              href="https://www.linkedin.com/in/khen-dela-cruz-89216b323/" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="hover:text-blue-400 transition-colors uppercase tracking-widest text-xs font-bold"
-            >
-              Linkedin
-            </a>
-            <a href="#" className="hover:text-blue-400 transition-colors uppercase tracking-widest text-xs font-bold">Twitter</a>
-          </div>
-        </div>
       </div>
     </footer>
   );

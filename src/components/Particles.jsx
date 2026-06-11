@@ -32,6 +32,7 @@ const vertex = /* glsl */ `
   uniform float uSpread;
   uniform float uBaseSize;
   uniform float uSizeRandomness;
+  uniform float uScrollVelocity;
   
   varying vec4 vRandom;
   varying vec3 vColor;
@@ -41,13 +42,23 @@ const vertex = /* glsl */ `
     vColor = color;
     
     vec3 pos = position * uSpread;
-    pos.z *= 10.0;
+    pos.z *= 10.0; // Spread depth
+    
+    // Fall speed based on random seed
+    float fallSpeed = mix(5.0, 15.0, random.x);
+    
+    // Calculate new Y position: falling down continuously
+    float totalFall = uTime * fallSpeed;
+    
+    // Wrap around logic: wrap between uSpread and -uSpread
+    float currentY = pos.y - totalFall;
+    currentY = mod(currentY + uSpread, uSpread * 2.0) - uSpread;
+    pos.y = currentY;
     
     vec4 mPos = modelMatrix * vec4(pos, 1.0);
-    float t = uTime;
-    mPos.x += sin(t * random.z + 6.28 * random.w) * mix(0.1, 1.5, random.x);
-    mPos.y += sin(t * random.y + 6.28 * random.x) * mix(0.1, 1.5, random.w);
-    mPos.z += sin(t * random.w + 6.28 * random.y) * mix(0.1, 1.5, random.z);
+    
+    // Slight horizontal wind effect
+    mPos.x += sin(uTime * 0.5 + random.z * 6.28) * 0.5;
     
     vec4 mvPos = viewMatrix * mPos;
 
@@ -66,21 +77,34 @@ const fragment = /* glsl */ `
   
   uniform float uTime;
   uniform float uAlphaParticles;
+  uniform float uScrollVelocity;
   varying vec4 vRandom;
   varying vec3 vColor;
   
   void main() {
     vec2 uv = gl_PointCoord.xy;
-    float d = length(uv - vec2(0.5));
+    vec2 offset = uv - vec2(0.5);
+    
+    // Always stretch the width to make it look like a raindrop streak
+    // Add extra stretch when scrolling
+    float stretch = 4.0 + abs(uScrollVelocity) * 0.2;
+    offset.x *= stretch;
+    
+    float d = length(offset);
     
     if(uAlphaParticles < 0.5) {
       if(d > 0.5) {
         discard;
       }
-      gl_FragColor = vec4(vColor + 0.2 * sin(uv.yxx + uTime + vRandom.y * 6.28), 1.0);
+      gl_FragColor = vec4(vColor, 1.0); // Removed the sine wave color pulsing for a cleaner raindrop
     } else {
       float circle = smoothstep(0.5, 0.4, d) * 0.8;
-      gl_FragColor = vec4(vColor + 0.2 * sin(uv.yxx + uTime + vRandom.y * 6.28), circle);
+      // Add a slight vertical fade for the raindrop tail effect
+      float tail = smoothstep(-0.5, 0.5, offset.y);
+      if (abs(uScrollVelocity) > 5.0) {
+          tail *= smoothstep(-0.5, 0.5, offset.y * sign(uScrollVelocity));
+      }
+      gl_FragColor = vec4(vColor, circle * tail);
     }
   }
 `;
@@ -103,6 +127,7 @@ const Particles = ({
   const containerRef = useRef(null);
   const mouseRef = useRef({ x: 0, y: 0 });
   const scrollRef = useRef(0);
+  const scrollVelocityRef = useRef(0);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -136,15 +161,9 @@ const Particles = ({
       mouseRef.current = { x, y };
     };
 
-    const handleScroll = () => {
-      scrollRef.current = window.scrollY;
-    };
-
     if (moveParticlesOnHover) {
-      // Use window event listener to ensure mouse movement is always tracked
       window.addEventListener('mousemove', handleMouseMove);
     }
-    window.addEventListener('scroll', handleScroll);
 
     const count = particleCount;
     const positions = new Float32Array(count * 3);
@@ -181,7 +200,8 @@ const Particles = ({
         uSpread: { value: particleSpread },
         uBaseSize: { value: particleBaseSize * pixelRatio },
         uSizeRandomness: { value: sizeRandomness },
-        uAlphaParticles: { value: alphaParticles ? 1 : 0 }
+        uAlphaParticles: { value: alphaParticles ? 1 : 0 },
+        uScrollVelocity: { value: 0 }
       },
       transparent: true,
       depthTest: false
@@ -199,7 +219,15 @@ const Particles = ({
       lastTime = t;
       elapsed += delta * speed;
 
+      const currentScroll = window.scrollY;
+      const targetScrollVelocity = currentScroll - scrollRef.current;
+      scrollRef.current = currentScroll;
+      
+      // Smooth the scroll velocity
+      scrollVelocityRef.current += (targetScrollVelocity - scrollVelocityRef.current) * 0.1;
+
       program.uniforms.uTime.value = elapsed * 0.001;
+      program.uniforms.uScrollVelocity.value = scrollVelocityRef.current;
 
       if (moveParticlesOnHover) {
         particles.position.x = -mouseRef.current.x * particleHoverFactor;
@@ -209,11 +237,8 @@ const Particles = ({
         particles.position.y = 0;
       }
 
-      if (!disableRotation) {
-        particles.rotation.x = Math.sin(elapsed * 0.0002) * 0.1;
-        particles.rotation.y = Math.cos(elapsed * 0.0005) * 0.15;
-        particles.rotation.z += 0.01 * speed;
-      }
+      // Completely removed the scene rotation to keep rain falling straight down
+      // if (!disableRotation) { ... }
 
       renderer.render({ scene: particles, camera });
     };
@@ -225,7 +250,6 @@ const Particles = ({
       if (moveParticlesOnHover) {
         window.removeEventListener('mousemove', handleMouseMove);
       }
-      window.removeEventListener('scroll', handleScroll);
       cancelAnimationFrame(animationFrameId);
       if (container.contains(gl.canvas)) {
         container.removeChild(gl.canvas);

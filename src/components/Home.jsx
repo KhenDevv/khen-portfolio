@@ -53,7 +53,10 @@ const Home = ({ isLoading }) => {
                         <span 
                           key={index} 
                           className="hover-glow-letter inline-block"
-                          style={{ transitionDelay: `${index * 120}ms` }}
+                          style={{ 
+                            '--hover-delay': `${index * 120}ms`,
+                            '--unhover-delay': `${(3 - index) * 120}ms`
+                          }}
                         >
                           {letter}
                         </span>

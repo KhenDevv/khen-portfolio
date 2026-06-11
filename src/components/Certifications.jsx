@@ -4,6 +4,9 @@ import { Award, Calendar, Building2, Eye } from 'lucide-react';
 
 import udemyPMThumb from '../assets/images/udemy-portfolio.jpg';
 import pythonCert from '../assets/images/python-cert.jpg';
+import cert2 from '../assets/2 certificate.jpg';
+import cert3 from '../assets/3 certificate.jpg';
+import cert4 from '../assets/4 certificate.jpg';
 
 const Certifications = () => {
   const certifications = [
@@ -22,6 +25,30 @@ const Certifications = () => {
       icon: <Award className="text-indigo-500" />,
       image: udemyPMThumb,
       link: 'https://ude.my/UC-abc9ef47-d535-473b-b285-249d9946e180'
+    },
+    {
+      title: 'Oracle SQL',
+      issuer: 'Great Learning',
+      date: 'August 2024',
+      icon: <Award className="text-blue-500" />,
+      image: cert2,
+      link: 'https://www.mygreatlearning.com/certificate/AWXUTXDX'
+    },
+    {
+      title: 'Advanced SQL',
+      issuer: 'Great Learning',
+      date: 'August 2024',
+      icon: <Award className="text-green-500" />,
+      image: cert3,
+      link: 'https://www.mygreatlearning.com/certificate/BGJKFPYB'
+    },
+    {
+      title: 'SQL Projects for Beginners',
+      issuer: 'Great Learning',
+      date: 'August 2024',
+      icon: <Award className="text-purple-500" />,
+      image: cert4,
+      link: 'https://www.mygreatlearning.com/certificate/EAFDBLFH'
     }
   ];
 
@@ -59,15 +86,15 @@ const Certifications = () => {
                     alt={cert.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  
+
                   {/* Hover Overlay */}
-                  <motion.div 
+                  <motion.div
                     className="absolute inset-0 bg-black/90 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-center text-center p-6 backdrop-blur-sm"
                   >
                     <div className="mb-4 w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center text-2xl">
                       {cert.icon}
                     </div>
-                    
+
                     <h3 className="text-xl font-semibold text-white mb-2 leading-tight">
                       {cert.title}
                     </h3>
@@ -82,7 +109,7 @@ const Certifications = () => {
                         {cert.date}
                       </div>
                     </div>
-                    
+
                     {cert.link && (
                       <button
                         className="px-8 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-full text-sm font-bold transition-all shadow-lg shadow-blue-600/30 active:scale-95"
@@ -95,7 +122,7 @@ const Certifications = () => {
                 </div>
               ) : (
                 <div className="p-8 h-full flex flex-col justify-center text-center">
-                   <div className="mb-6 w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center text-3xl mx-auto">
+                  <div className="mb-6 w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center text-3xl mx-auto">
                     {cert.icon}
                   </div>
                   <h3 className="text-lg font-medium mb-4">{cert.title}</h3>
