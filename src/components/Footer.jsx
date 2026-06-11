@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, Linkedin, Mail, Twitter, ChevronUp } from 'lucide-react';
+import { ChevronUp } from 'lucide-react';
 
 const Footer = () => {
   const scrollToTop = () => {
